@@ -20,6 +20,7 @@
     "homepage": "https://github.com/matheuskdr/b7store-backend#readme",
     "dependencies": {
         "@prisma/adapter-pg": "^7.1.0",
+        "@prisma/client": "^7.1.0",
         "bcryptjs": "^3.0.3",
         "cors": "^2.8.5",
         "express": "^5.2.1",
