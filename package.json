@@ -1,0 +1,38 @@
+{
+    "name": "b7store-backend",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "tsx watch --env-file=.env src/server.ts"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/matheuskdr/b7store-backend.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "module",
+    "bugs": {
+        "url": "https://github.com/matheuskdr/b7store-backend/issues"
+    },
+    "homepage": "https://github.com/matheuskdr/b7store-backend#readme",
+    "dependencies": {
+        "@prisma/adapter-pg": "^7.1.0",
+        "bcryptjs": "^3.0.3",
+        "cors": "^2.8.5",
+        "express": "^5.2.1",
+        "stripe": "^20.0.0",
+        "uuid": "^13.0.0",
+        "zod": "^4.1.13"
+    },
+    "devDependencies": {
+        "@types/cors": "^2.8.19",
+        "@types/express": "^5.0.6",
+        "@types/node": "^24.10.1",
+        "prisma": "^7.1.0",
+        "tsx": "^4.21.0",
+        "typescript": "^5.9.3"
+    }
+}
