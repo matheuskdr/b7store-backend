@@ -3,6 +3,9 @@ import { cartMountSchema } from "../schemas/car-mount-schema";
 import { getProduct } from "../services/product";
 import { getAbsoluteImageUrl } from "../utils/get-absolute-image-urll";
 import { calculateShippingSchema } from "../schemas/calculate-shipping-schema";
+import { cartFinishSchema } from "../schemas/cart-finish-schema";
+import { getAddressById } from "../services/user";
+import { createOrder } from "../services/order";
 
 export const cartMount: RequestHandler = async (req, res) => {
     const parseResult = cartMountSchema.safeParse(req.body);
@@ -39,4 +42,40 @@ export const calculateShipping: RequestHandler = async (req, res) => {
     const { zipcode } = parseResult.data;
 
     res.json({ error: null, cost: 7, days: 3 });
+};
+
+export const finish: RequestHandler = async (req, res) => {
+    const userId = (req as any).userId;
+    if (!userId) {
+        res.status(401).json({ error: "Acesso negado" });
+        return;
+    }
+
+    const result = cartFinishSchema.safeParse(req.body);
+    if (!result.success) {
+        res.status(400).json({ error: "Carrinho inexistente" });
+        return;
+    }
+    const { cart, addressId } = result.data;
+
+    const address = await getAddressById(userId, addressId);
+    if (!address) {
+        res.status(400).json({ error: "Endereço inválido" });
+        return;
+    }
+
+    const shippingCost = 7; //TODO
+    const shippingDays = 3; //TODO
+
+    const orderId = await createOrder({
+        userId,
+        address,
+        shippingCost,
+        shippingDays,
+        cart,
+    });
+
+    let url = "";
+
+    res.status(201).json({ error: null, url });
 };
