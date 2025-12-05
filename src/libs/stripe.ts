@@ -57,3 +57,15 @@ export const createStripeCheckoutSeesion = async ({
 
     return session;
 };
+
+export const getConstructEvent = async (
+    rawBody: string,
+    sig: string,
+    webhook: string
+) => {
+    try {
+        return stripe.webhooks.constructEvent(rawBody, sig, webhook);
+    } catch {
+        return null;
+    }
+};
